@@ -1,0 +1,10 @@
+{
+  "name": "تطبيق اندرويد لنظام الشفاء للمحاسبة الدوائية",
+  "description": "Integrated Windows software for Syrian pharmacies featuring inventory, POS, accounting, and automatic Ministry of Health price synchronization.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

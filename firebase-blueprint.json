@@ -1,0 +1,131 @@
+{
+  "entities": {
+    "Medication": {
+      "title": "Medication",
+      "description": "Represents a medication catalog entry",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "tradeName": { "type": "string" },
+        "tradeNameAr": { "type": "string" },
+        "scientificName": { "type": "string" },
+        "strength": { "type": "string" },
+        "form": { "type": "string" },
+        "manufacturer": { "type": "string" },
+        "category": { "type": "string" },
+        "barcode": { "type": "string" },
+        "costPrice": { "type": "number" },
+        "price": { "type": "number" },
+        "minStockAlert": { "type": "integer" },
+        "stock": { "type": "integer" },
+        "expiryDate": { "type": "string" },
+        "supplierId": { "type": "string" }
+      },
+      "required": ["id", "tradeName", "scientificName"]
+    },
+    "Supplier": {
+      "title": "Supplier",
+      "description": "Represents an active pharmacy supplier",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "balance": { "type": "number" }
+      },
+      "required": ["id", "name"]
+    },
+    "Customer": {
+      "title": "Customer",
+      "description": "Represents a pharmaceutical customer or buying account",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "balance": { "type": "number" }
+      },
+      "required": ["id", "name"]
+    },
+    "Invoice": {
+      "title": "Invoice",
+      "description": "Represents a physical or digital checkout/sales invoice",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "invoiceNumber": { "type": "string" },
+        "total": { "type": "number" },
+        "totalUSD": { "type": "number" },
+        "dollarRate": { "type": "number" },
+        "discount": { "type": "number" },
+        "paymentMethod": { "type": "string" },
+        "customerName": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "soldBy": { "type": "string" },
+        "isSuspended": { "type": "boolean" }
+      },
+      "required": ["id", "invoiceNumber", "total", "createdAt"]
+    },
+    "Expense": {
+      "title": "Expense",
+      "description": "Represents any operational/capital expenditures",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "amountSYP": { "type": "number" },
+        "amountUSD": { "type": "number" },
+        "dollarRate": { "type": "number" },
+        "date": { "type": "string" },
+        "notes": { "type": "string" },
+        "operator": { "type": "string" }
+      },
+      "required": ["id", "title", "amountSYP", "date"]
+    },
+    "MedicationMovement": {
+      "title": "MedicationMovement",
+      "description": "Tracks stock ledger alterations and movements",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "medicationId": { "type": "string" },
+        "tradeName": { "type": "string" },
+        "type": { "type": "string" },
+        "quantity": { "type": "integer" },
+        "date": { "type": "string" },
+        "referenceId": { "type": "string" },
+        "price": { "type": "number" },
+        "operator": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "required": ["id", "medicationId", "type", "quantity", "date"]
+    }
+  },
+  "firestore": {
+    "/medications/{medicationId}": {
+      "schema": "Medication",
+      "description": "Shared online medication database"
+    },
+    "/suppliers/{supplierId}": {
+      "schema": "Supplier",
+      "description": "Shared online supplier profiles"
+    },
+    "/customers/{customerId}": {
+      "schema": "Customer",
+      "description": "Shared online customer ledger profiles"
+    },
+    "/invoices/{invoiceId}": {
+      "schema": "Invoice",
+      "description": "Shared online invoice documents"
+    },
+    "/expenses/{expenseId}": {
+      "schema": "Expense",
+      "description": "Shared online operational expenditure items"
+    },
+    "/medicationMovements/{movementId}": {
+      "schema": "MedicationMovement",
+      "description": "Shared online medication stock movements"
+    }
+  }
+}

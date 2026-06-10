@@ -1,0 +1,44 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default catch-all denies all access to keep boundaries intact
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Validate ID pattern or format
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // 1. Medications: Shared drug index and stock levels list
+    match /medications/{medicationId} {
+      allow read, write: if true;
+    }
+
+    // 2. Suppliers: Shared wholesale supplier balance tracking
+    match /suppliers/{supplierId} {
+      allow read, write: if true;
+    }
+
+    // 3. Customers: Shared debt ledger customer records
+    match /customers/{customerId} {
+      allow read, write: if true;
+    }
+
+    // 4. Invoices: Sales invoices synced globally
+    match /invoices/{invoiceId} {
+      allow read, write: if true;
+    }
+
+    // 5. Expenses: Consolidated expense voucher records
+    match /expenses/{expenseId} {
+      allow read, write: if true;
+    }
+
+    // 6. Medication Movements: Track detailed inventory audit histories
+    match /medicationMovements/{movementId} {
+      allow read, write: if true;
+    }
+  }
+}

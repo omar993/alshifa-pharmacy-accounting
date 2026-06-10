@@ -1,0 +1,79 @@
+{
+  "name": "remix-pharma",
+  "private": true,
+  "version": "1.2.0",
+  "type": "module",
+  "description": "نظام ريمكس المتكامل للجرد والمحاسبة لصيدليات الجمهورية العربية السورية لعام 2026",
+  "author": "Google AI Studio & Remix Integrated Systems",
+  "main": "electron-main.cjs",
+  "scripts": {
+    "dev": "tsx server.ts",
+    "build": "npx vite build && npx esbuild server.ts --bundle --platform=node --format=cjs --external:sqlite3 --sourcemap --outfile=dist/server.cjs",
+    "start": "node dist/server.cjs",
+    "clean": "rm -rf dist server.js",
+    "lint": "tsc --noEmit",
+    "dev:electron": "node repair-electron.cjs && node node_modules/electron/cli.js .",
+    "package:win": "npm run build && electron-builder build --win --dir",
+    "build:desktop": "npm run build && electron-builder build --win"
+  },
+  "build": {
+    "appId": "com.remix.pharma",
+    "productName": "RemixPharma",
+    "directories": {
+      "output": "dist-desktop"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "shortcutName": "نظام ريمكس لمحاسبة الصيدليات"
+    },
+    "files": [
+      "dist/**/*",
+      "electron-main.cjs",
+      "package.json"
+    ],
+    "asar": true
+  },
+  "dependencies": {
+    "@google/genai": "^1.29.0",
+    "@tailwindcss/vite": "^4.3.0",
+    "@vitejs/plugin-react": "^5.2.0",
+    "adm-zip": "^0.5.17",
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2",
+    "firebase": "^12.14.0",
+    "html5-qrcode": "^2.3.8",
+    "lucide-react": "^0.546.0",
+    "motion": "^12.23.24",
+    "nodemailer": "^8.0.10",
+    "react": "^19.0.1",
+    "react-dom": "^19.0.1",
+    "react-is": "^19.0.0",
+    "recharts": "^3.8.1",
+    "vite": "^6.2.3",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.14.0",
+    "@types/nodemailer": "^8.0.0",
+    "autoprefixer": "^10.4.21",
+    "esbuild": "^0.25.0",
+    "tailwindcss": "^4.1.14",
+    "tsx": "^4.21.0",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.3"
+  },
+  "optionalDependencies": {
+    "electron": "^31.0.2",
+    "electron-builder": "^24.13.3"
+  }
+}
